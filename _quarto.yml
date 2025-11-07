@@ -1,5 +1,17 @@
 project:
+  type: website
   title: "Assignment8"
 
 editor: visual
 
+website:
+  navbar:
+    left:
+      - index.qmd
+
+format:
+  html:
+    theme: cosmo
+
+publish:
+  gh-pages: true
