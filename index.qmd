@@ -1,0 +1,53 @@
+---
+title: "Palmer Penguins"
+author: "Cobblepot Analytics"
+format: 
+  dashboard:
+    logo: images/penguins.png
+    nav-buttons: [linkedin, twitter, github]
+---
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(plotly)
+library(janitor)
+
+penguins_data <- read_csv("data/penguins_lter.csv")
+penguins_data <- penguins_data %>% 
+  clean_names()
+```
+
+## Row 1 {height="70%"}
+
+```{r}
+ ggplot(data = penguins_data, aes(x = body_mass_g, fill = species)) +
+  geom_histogram() +
+  theme_bw() + 
+  scale_fill_viridis_d() + # try adding option = "A", "C", "E", etc. These also have names! See documentation.
+  labs(title = "Palmer Penguins, Distribution of Flipper Length",
+       subtitle = "3 penguin species observed on three islands in the Palmer Archipelago, Antarctica",
+       x = "body mass",
+       y = "Number of Penguins")
+```
+
+```{r}
+ggplot(data = penguins_data, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+```
+
+## Row 2 {height="30%"}
+
+```{r}
+depth_by_mass <- ggplot(data = penguins_data, aes(x = culmen_depth_mm, y = body_mass_g, fill = species)) +
+  geom_boxplot() +
+  geom_jitter(size = 0.5) + # adding some datapoints and jittering them
+  theme_bw() + # sets overall plot theme (think background, axes, bounding box)
+  scale_fill_viridis_d() +
+  labs(title = "Pengu's Bodymass by depth",
+       x = "body mass",
+       y = "culmen depth (mm)") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1), legend.position = "none") +
+  coord_flip()
+
+knitr::kable(penguins_data, caption = "Penguins Stats Overview")
+```
