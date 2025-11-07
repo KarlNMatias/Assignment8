@@ -1,13 +1,16 @@
 project:
   type: website
+  output-dir: docs
   title: "Assignment8"
 
 editor: visual
 
 website:
+  title: "Assignment8"
   navbar:
     left:
-      - index.qmd
+      - text: "Home"
+        file: index.qmd
 
 format:
   html:
